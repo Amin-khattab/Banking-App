@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex justify-center items-center bg-slate-100 ">
+    <div class="w-[360px] p-[30px] bg-white rounded-[10px] shadow-[0_4px_12px_rgba(0,0,0,0.2)]">
+        <h2 class="mt-0 mb-5 text-center text-xl font-semibold">Sign Up</h2>
+
+        <form id="sign-up-form" class="flex flex-col" action="/sign_up" method="post">
+            <p class="mt-0 mb-5 text-center rarounded-[10px]">Sign Up to Amin's Bank</p>
+
+            <label class="mb-0 font-medium" for="email">Email:</label>
+            <input id="email" name="email"
+                class="mb-3 p-1 rounded-[10px] bg-slate-100 border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition duration-300 outline-none"
+                required type="email" placeholder="example@gmail.com">
+
+            <label class="mb-0 font-medium" for="password">Password:</label>
+            <input id="password" name="password"
+                class="mb-0 p-1 rounded-[10px] bg-slate-100 px-3 py-2 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition duration-300 outline-none"
+                type="password" required placeholder="password">
+
+            <button class="mt-6 bg-blue-400 rounded-[10px] p-2 text-white hover:bg-blue-600 transition duration-700"
+                type="submit">Sign Up</button>
+        </form>
+        <p id="form-error" class="hidden font-semibold text-red-500 text-sm mt-4"></p>
+    </div>
+</body>
+
+<script src="/static/sign_up.js"></script>
+
+</html>
