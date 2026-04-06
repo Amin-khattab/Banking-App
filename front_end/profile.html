@@ -64,8 +64,18 @@
 
         </div>
         <div class="flex-1 bg-slate-100 p-2">
-            <p class="px-3  text-3xl font-semibold mt-9">Profile</p>
-            <p class=" px-6 text- opacity-70 mt-3">Manage your account and Your personal information</p>
+            <form action="/logout" method="post" class="flex items-start justify-between">
+                <div>
+                    <p class="px-3  text-3xl font-semibold mt-9">Profile</p>
+                    <p class=" px-6 text- opacity-70 mt-3">Manage your account and Your personal information</p>
+                </div>
+
+                <button type="submit"
+                    class="bg-black mr-3 text-white rounded-lg px-3 py-2 hover:bg-gray-600 transition duration-500 ">Log
+                    out</button>
+            </form>
+
+
 
             <div class="mt-6 rounded-3xl border bg-white p-4">
                 <h2 class="font-semibold text-xl">Personal information</h2>

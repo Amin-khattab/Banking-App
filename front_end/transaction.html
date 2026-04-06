@@ -71,98 +71,46 @@
                         class="border px-2 border-gray-200 w-full outline-none rounded-lg ring-1 ring-gray-200 focus:ring-3 focus:ring-blue-400 transition duration-500">
                 </div>
                 <div>
-                    <button class="ml-5 bg-black text-white px-3 p-1 rounded-lg">All</button>
-                    <button class="ml-2 bg-black text-white px-2 p-1 rounded-lg">expenses</button>
-                    <button class="ml-2 bg-black text-white px-3 p-1 rounded-lg">income</button>
+                    <a href="/transaction" class="ml-5 bg-black text-white px-3 p-1 rounded-lg">All</a>
+                    <a href="/transaction?type=income" class="ml-5 bg-black text-white px-3 p-1 rounded-lg">Incomes</a>
+                    <a href="/transaction?type=expense"
+                        class="ml-5 bg-black text-white px-3 p-1 rounded-lg">Expenses</a>
                 </div>
             </div>
 
             <div class="bg-white p-3 mt-5 mx-1 rounded-lg">
                 <p class="opacity-80 font-semibold">All Transactions</p>
 
+                {%for transaction in transactions%}
                 <div class="flex items-center justify-between mt-5 border-b border-gray-100 py-3">
                     <div class="flex items-center gap-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4 text-red-600 ml-2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                        </svg>
 
-                        <div>
-                            <p class="font-semibold">Vacation</p>
-                            <p class="opacity-60">Vacation . Dec 22, 2028</p>
-                        </div>
-                    </div>
-
-                    <p class="font-semibold text-red-500">3000,00$</p>
-                </div>
-
-                <div class="flex items-center justify-between border-b border-gray-100 py-3">
-                    <div class="flex items-center gap-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4 text-red-600 ml-2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                        </svg>
-
-                        <div>
-                            <p class="font-semibold">shopping trip</p>
-                            <p class="opacity-60">shopping . Dec 22, 2028</p>
-                        </div>
-                    </div>
-
-                    <p class="font-semibold text-red-500">500,00$</p>
-                </div>
-
-                <div class="flex items-center justify-between border-b border-gray-100 py-3">
-                    <div class="flex items-center gap-4">
+                        {% if transaction.type == "income" %}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-4 ml-2 text-green-500">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="m19.5 4.5-15 15m0 0h11.25m-11.25 0V8.25" />
                         </svg>
-
-                        <div>
-                            <p class="font-semibold">salary</p>
-                            <p class="opacity-60">salary . jan 1, 2029</p>
-                        </div>
-                    </div>
-
-                    <p class="font-semibold text-green-500">6000,00$</p>
-                </div>
-
-                <div class="flex items-center justify-between py-3">
-                    <div class="flex items-center gap-4">
+                        {%else%}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4 text-red-500">
+                            stroke="currentColor" class="size-4 text-red-600 ml-2">
                             <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m19.5 4.5-15 15m0 0h11.25m-11.25 0V8.25" />
+                                d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                         </svg>
-                        <div>
-                            <p class="font-semibold">shopping</p>
-                            <p class="opacity-70 text-sm">dec 22,2029</p>
-                        </div>
-                    </div>
-
-                    <p class="text-red-500 font-medium">300,00$</p>
-                </div>
-
-                <div class="flex items-center justify-between border-b border-gray-100 py-3">
-                    <div class="flex items-center gap-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-4 ml-2 text-green-500">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m19.5 4.5-15 15m0 0h11.25m-11.25 0V8.25" />
-                        </svg>
+                        {%endif%}
 
                         <div>
-                            <p class="font-semibold">debt</p>
-                            <p class="opacity-60">debt . jan 15, 2029</p>
+                            <p class="font-semibold">{{transaction.title}}</p>
+                            <p class="opacity-60">{{transaction.category}} . {{transaction.created_at}}</p>
                         </div>
                     </div>
-
-                    <p class="font-semibold text-green-500">1000,00$</p>
+                    {% if transaction.type == "income"%}
+                    <p class="font-semibold text-green-500">{{transaction.amount}}</p>
+                    {%else%}
+                    <p class="font-semibold text-red-600">{{transaction.amount}}</p>
+                    {%endif%}
                 </div>
+                {% endfor %}
 
             </div>
 

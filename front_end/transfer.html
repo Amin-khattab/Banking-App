@@ -67,22 +67,22 @@
             <p class="px-3  text-3xl font-semibold mt-9">Transfer Money</p>
             <p class=" px-6 text- opacity-70 mt-3">Send money to other people easily</p>
 
-            <div class=" items-center w-[850px] bg-white p-4 rounded-lg mt-3">
+            <form method="post" action="/transfer" class="items-center w-[850px] bg-white p-4 rounded-lg mt-3">
                 <div class="mr-1 flex-1">
                     <p class="text-xl font-semibold mb-6">transfer</p>
                     <label class="font-medium ml-1" for="Person">Recipent</label>
-                    <input type="text" placeholder="Name"
+                    <input type="text" placeholder="Recipient Email" name="email"
                         class="border px-2 border-gray-200 w-full outline-none rounded-lg ring-1 ring-gray-200 focus:ring-3 focus:ring-blue-400 transition duration-500 mt-1">
                 </div>
                 <div class="mr-1 flex-1">
                     <p class="text-xl font-semibold mb-6"></p>
                     <label class="font-medium ml-1" for="Person">Amount</label>
-                    <input type="number" placeholder="$ 0,00"
+                    <input type="number" placeholder="$ 0,00 " name="amount"
                         class="border px-2 border-gray-200 w-full outline-none rounded-lg ring-1 ring-gray-200 focus:ring-3 focus:ring-blue-400 transition duration-500 mt-1">
                 </div>
-                <button
+                <button type="submit"
                     class="mt-10 ml-1 bg-black text-white px-4 py-1 rounded-lg hover:bg-gray-600 transition duration-700 w-full">Send</button>
-            </div>
+            </form>
         </div>
 
 
