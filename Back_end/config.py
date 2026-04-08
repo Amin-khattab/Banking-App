@@ -12,3 +12,5 @@ DATABASE_URL = os.getenv(
     "DATABASE_URL",
     "postgresql+psycopg2://postgres:postgres@localhost:5432/banking_app",
 )
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")

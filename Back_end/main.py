@@ -10,6 +10,10 @@ from fastapi.templating import Jinja2Templates
 from Back_end.database import get_db
 from Back_end.models import User , Transaction
 from starlette.middleware.sessions import SessionMiddleware
+from openai import OpenAI
+from Back_end.config import OPENAI_API_KEY
+
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 app = FastAPI()
 
@@ -132,11 +136,64 @@ def handle_transfer(request:Request,
     return RedirectResponse("/transaction",status_code=303)
     
 
-@app.get("/cards")
-def cards_page(request:Request):
+@app.get("/assistant")
+def assistant_page(request:Request):
     if "user_id" not in request.session:
         return RedirectResponse("/login",status_code=303)
-    return FileResponse(FRONT_END_DIR / "cards.html")
+    return FileResponse(FRONT_END_DIR / "assistant.html")
+
+@app.post("/assistant/chat")
+def chat(request : Request,
+         question : str = Form(...),
+         db : Session = Depends(get_db)):
+    
+    if "user_id" not in request.session:
+        return {"reply": "Please log in first."}
+    
+    user_id = request.session["user_id"]
+    user = db.query(User).filter(User.id == user_id).first()
+    transactions = db.query(Transaction).filter(Transaction.user_id == user_id).all()
+
+    income_total = sum(float(t.amount) for t in transactions if t.type == "income")
+    expense_total = sum(float(t.amount) for t in transactions if t.type == "expense")
+
+    balance = float(user.balance)
+    try:
+        response = client.responses.create(
+            model="gpt-5-mini",
+            input=[
+                {
+                    "role": "system",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": (
+                                "You are a helpful banking assistant. "
+                                "Answer clearly and briefly using the user's financial data."
+                            ),
+                        }
+                    ],
+                },
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": (
+                                f"Question: {question}\n"
+                                f"Balance: ${balance:.2f}\n"
+                                f"Income: ${income_total:.2f}\n"
+                                f"Expenses: ${expense_total:.2f}\n"
+                            ),
+                        }
+                    ],
+                },
+            ]
+        )
+        return {"reply": response.output_text}
+    except Exception as e:
+            print(e)
+            return {"reply": "The AI service is unavailable right now. Please try again later."}
 
 
 @app.get("/profile")
