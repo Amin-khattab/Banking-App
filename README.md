@@ -2,14 +2,18 @@
 
 A simple full-stack banking app built with FastAPI, PostgreSQL, SQLAlchemy, Alembic, and Tailwind CSS.
 
-This project includes:
-- user sign up and login
-- password hashing
-- session-based authentication
-- protected pages
-- real database-backed transactions
-- dashboard totals
-- money transfer by email between users
+The app supports account creation, login/logout, transaction tracking, money transfers between users, and an AI assistant that can answer questions using the signed-in user's financial data.
+
+## Features
+
+- Sign up with email and password
+- Log in with session-based authentication
+- Secure password hashing with `passlib` and `bcrypt`
+- Dashboard with current balance, income total, and expense total
+- Transaction history with optional income/expense filtering
+- Transfer money to another user by email
+- AI assistant powered by OpenAI for quick account insights
+- PostgreSQL persistence with Alembic migrations
 
 ## Tech Stack
 
@@ -20,16 +24,7 @@ This project includes:
 - PostgreSQL
 - Jinja2
 - Tailwind CSS
-
-## Features
-
-- Create an account
-- Log in and log out
-- Store users in PostgreSQL
-- Hash passwords securely with bcrypt/passlib
-- View a dashboard with balance, income, and expense totals
-- View transactions and filter by income or expense
-- Transfer money to another user by email
+- OpenAI API
 
 ## Project Structure
 
@@ -41,15 +36,23 @@ Back_end/
   main.py
   models.py
 front_end/
+  assistant.html
+  assistant.js
   dashboard.html
   login.html
   profile.html
   sign_up.html
   transaction.html
   transfer.html
-alembic.ini
 .env.example
+README.md
+alembic.ini
 ```
+
+## Prerequisites
+
+- Python 3.10+
+- PostgreSQL
 
 ## Setup
 
@@ -67,58 +70,71 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install backend dependencies
+### 3. Install dependencies
 
 ```bash
-pip install fastapi uvicorn sqlalchemy alembic psycopg2-binary python-dotenv jinja2 passlib bcrypt itsdangerous python-multipart
+pip install fastapi uvicorn sqlalchemy alembic psycopg2-binary python-dotenv jinja2 passlib bcrypt itsdangerous python-multipart openai
 ```
 
-### 4. Create the environment file
+### 4. Configure environment variables
 
-Create a `.env` file in the project root:
+Copy the example file:
+
+```bash
+cp .env.example .env
+```
+
+Then update `.env` with your local values:
 
 ```env
 DATABASE_URL=postgresql+psycopg2://postgres:YOUR_PASSWORD@localhost:5432/banking_app
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-You can also copy from `.env.example`.
+`OPENAI_API_KEY` is required only if you want to use the AI assistant page.
 
-### 5. Run migrations
+### 5. Run database migrations
 
 ```bash
 alembic upgrade head
 ```
 
-### 6. Start the app
-
-Run from the project root:
+### 6. Start the development server
 
 ```bash
 uvicorn Back_end.main:app --reload
 ```
 
-Then open:
+Open the app at:
 
 ```text
 http://127.0.0.1:8000
 ```
 
+## Main Routes
+
+- `/` - sign-up page
+- `/login` - login page
+- `/dashboard` - account overview
+- `/transaction` - full transaction history
+- `/transfer` - transfer money to another user
+- `/assistant` - AI banking assistant
+- `/profile` - profile page
+
 ## Notes
 
-- Transfers work by recipient email.
-- The sender's balance decreases and the recipient's balance increases.
-- Each transfer creates two transaction records:
-  - sender: expense
-  - recipient: income
+- Transfers create two transaction records: one `expense` record for the sender and one `income` record for the recipient
+- Transaction pages can be filtered with `?type=income` or `?type=expense`
+- The current session secret is hardcoded for local development and should be moved to environment variables before production use
 
 ## Future Improvements
 
-- better validation and error messages
-- account settings/profile editing
-- cleaner UI polish
-- transfer success/failure feedback
-- better transaction search and filtering
-- tests
+- Better transfer validation and user feedback
+- Stronger production auth/session configuration
+- Profile editing
+- Better transaction search and filters
+- Automated tests
+- Deployment setup
 
 ## Author
 
