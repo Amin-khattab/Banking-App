@@ -44,6 +44,14 @@ front_end/
   sign_up.html
   transaction.html
   transfer.html
+screenshots/
+  Ai.png
+  Dashboard.png
+  login.png
+  profile.png
+  sign_up.png
+  transaction.png
+  transfer.png
 .env.example
 README.md
 alembic.ini
@@ -120,6 +128,36 @@ http://127.0.0.1:8000
 - `/transfer` - transfer money to another user
 - `/assistant` - AI banking assistant
 - `/profile` - profile page
+
+## Screenshots
+
+### Sign Up
+
+![Sign Up Page](./screenshots/sign_up.png)
+
+### Login
+
+![Login Page](./screenshots/login.png)
+
+### Dashboard
+
+![Dashboard Page](./screenshots/Dashboard.png)
+
+### Transactions
+
+![Transactions Page](./screenshots/transaction.png)
+
+### Transfer
+
+![Transfer Page](./screenshots/transfer.png)
+
+### AI Assistant
+
+![AI Assistant Page](./screenshots/Ai.png)
+
+### Profile
+
+![Profile Page](./screenshots/profile.png)
 
 ## Notes
 
