@@ -1,8 +1,8 @@
 # Banking App
 
-A simple full-stack banking app built with FastAPI, PostgreSQL, SQLAlchemy, Alembic, and Tailwind CSS.
+A full-stack banking application built with FastAPI, PostgreSQL, SQLAlchemy, Alembic, and Tailwind CSS.
 
-The app supports account creation, login/logout, transaction tracking, money transfers between users, and an AI assistant that can answer questions using the signed-in user's financial data.
+The app supports account creation, login/logout, transaction tracking, money transfers between users, and an AI assistant powered by OpenAI that answers questions using the signed-in user's financial data.
 
 ## Features
 
